@@ -1,0 +1,5 @@
+.env
+venv
+contas.xlsx
+outtputcontas.xlsx
+**/__pycache__
