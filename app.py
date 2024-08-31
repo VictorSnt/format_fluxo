@@ -19,11 +19,10 @@ if __name__ == '__main__':
     str_numbers = [num for num in numbers if isinstance(num, str)]
     query = Query("""
           SELECT idpessoa, nrtitulo FROM wshop.fluxo
-          WHERE nrtitulo IN ({}) AND dtbaixa IS NULL AND dtexclusao IS NULL
-    """.format(','.join([f"'{n}'" for n in str_numbers])))
-    print(query.text)
-    result = connector.execute_query(query)
+          WHERE nrtitulo IN %s AND dtbaixa IS NULL AND dtexclusao IS NULL
+    """)
     
+    result = connector.execute_query(query, tuple(str_numbers))
     sheet_service.update_idpessoa_from_tuples(result)
     sheet_service.remove_duplicates()
     sheet_service.save_data()

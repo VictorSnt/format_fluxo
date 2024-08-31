@@ -37,7 +37,7 @@ class DBConector:
         if not isinstance(self.cursor, Cursor):
             raise NotConnectedException('You must connect to databse first')
 
-        self.cursor.execute(query.text)
+        self.cursor.execute(query.text, (params,))
 
         return self.cursor.fetchall()
 
